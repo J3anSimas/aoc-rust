@@ -1,5 +1,3 @@
-use std::thread::current;
-
 pub struct ElfInventory {
     calories: Vec<u64>,
 }
@@ -9,10 +7,9 @@ impl ElfInventory {
         Self { calories }
     }
     pub fn get_total_calories(&self) -> u64 {
-        let mut sum: u64 = 0;
-        for i in &self.calories {
-            sum += i;
-        }
+        // let calories_ref = &self.calories;
+        // let sum: u64 = calories_ref.iter().sum(); 
+        let sum: u64 = self.calories.iter().sum();
         return sum;
     }
 }
