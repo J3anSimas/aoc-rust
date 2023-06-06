@@ -7,8 +7,6 @@ impl ElfInventory {
         Self { calories }
     }
     pub fn get_total_calories(&self) -> u64 {
-        // let calories_ref = &self.calories;
-        // let sum: u64 = calories_ref.iter().sum(); 
         let sum: u64 = self.calories.iter().sum();
         return sum;
     }
@@ -32,10 +30,11 @@ impl InventoriesManager {
         return max;
     }
     fn get_total_calories(&self) -> u64 {
-        let mut sum = 0;
-        for i in &self.inventories {
-            sum += i.get_total_calories();
-        }
+        let sum: u64 = self
+            .inventories
+            .iter()
+            .map(|x| x.get_total_calories())
+            .sum();
         return sum;
     }
     pub fn get_top_three_sum(&self) -> u64 {
