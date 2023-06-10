@@ -1,18 +1,19 @@
 const POSSIBLE_ITEMS: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-struct Compartment {
+pub struct Compartment {
     items: Vec<String>,
 }
 
 impl Compartment {
-    fn new(items: Vec<String>) -> Self {
+    pub(crate) fn new(items: Vec<String>) -> Self {
         Self { items }
     }
+    
 }
-struct Rucksack {
+pub struct Rucksack {
     compartments: [Compartment; 2],
 }
 impl Rucksack {
-    fn new(compartments: [Compartment; 2]) -> Self {
+    pub(crate) fn new(compartments: [Compartment; 2]) -> Self {
         Self { compartments }
     }
 
@@ -34,21 +35,26 @@ impl Rucksack {
                     .expect("Could not identify item")
                     + 1
             }
-
             None => 0,
         };
         return priority as u32;
     }
+    fn print(&self) {
+        println!("Rucksack");
+        println!("{:?} - {:?}", self.compartments[0].items,self.compartments[1].items );
+        println!("Duplicated item: {} - Priority: {}", self.get_duplicated_item().expect(""), self.get_duplicated_priority());
+        println!();
+    }
 }
-struct RucksacksManager {
+pub struct RucksacksManager {
     rucksacks: Vec<Rucksack>,
 }
 
 impl RucksacksManager {
-    fn new(rucksacks: Vec<Rucksack>) -> Self {
+   pub fn new(rucksacks: Vec<Rucksack>) -> Self {
         Self { rucksacks }
     }
-    fn get_sum_priorities(&self) -> u32 {
+    pub(crate) fn get_sum_priorities(&self) -> u32 {
         let sum: u32 = self
             .rucksacks
             .iter()
@@ -56,6 +62,13 @@ impl RucksacksManager {
             .sum();
         return sum;
     }
+    pub(crate) fn get_sum_badge_priority(&self) -> u32 {
+        return 3;
+    }
+    pub(crate) fn print(&self) {
+        self.rucksacks.iter().for_each(|x| x.print());
+    }
+
 }
 #[cfg(test)]
 mod tests {
